@@ -1,0 +1,15 @@
+[package]
+name = "tirinha"
+version = "1.0.0"
+authors = ["lemoce"]
+edition = "2018"
+
+[dependencies]
+select = "0.4.2"
+reqwest = "0.9.9"
+tempfile = "3.0.6"
+
+[dependencies.sdl2]
+version = "0.32"
+default-features = false
+features = ["image"]
