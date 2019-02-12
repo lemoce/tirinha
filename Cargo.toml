@@ -3,11 +3,13 @@ name = "tirinha"
 version = "1.0.0"
 authors = ["lemoce"]
 edition = "2018"
+build = "build.rs"
 
 [dependencies]
 select = "0.4.2"
 reqwest = "0.9.9"
 tempfile = "3.0.6"
+uuid = { version = "0.7", features = ["serde", "v4"] }
 
 [dependencies.sdl2]
 version = "0.32"
