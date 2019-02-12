@@ -31,7 +31,7 @@ fn draw_image(path: &Path, canvas: &mut WindowCanvas) -> Result<(), String> {
     Ok(())
 }
 
-fn run(image_files: &Vec<&Path>) -> Result<(), String> {
+fn run(image_files: Vec<&Path>) -> Result<(), String> {
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
     let _image_context = sdl2::image::init(InitFlag::PNG | InitFlag::JPG)?;
@@ -108,6 +108,7 @@ fn main() {
     let dir = Builder::new()
         .prefix("tirinha")
         .suffix("-files")
+        .rand_bytes(0)
         .tempdir()
         .unwrap();
     
@@ -126,6 +127,6 @@ fn main() {
         path.as_path()
     }).collect();
 
-    run(&downloaded_files).unwrap();
+    run(downloaded_files).unwrap();
     
 }
