@@ -47,8 +47,10 @@ fn run(image_files: Vec<&Path>) -> Result<(), String> {
     draw_image(image_files[idx], &mut canvas)?;
     
     'mainloop: loop {
-        for event in sdl_context.event_pump()?.poll_iter() {
+        if let Some(event) = sdl_context.event_pump()?.wait_event_timeout(30000) {
             match event {
+        // for event in sdl_context.event_pump()?.poll_iter() {
+        //     match event {
                 Event::Quit{..} |
                 Event::KeyDown {keycode: Option::Some(Keycode::Escape), ..} =>
                     break 'mainloop,
