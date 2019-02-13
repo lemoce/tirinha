@@ -45,27 +45,29 @@ fn run(image_files: Vec<&Path>) -> Result<(), String> {
     let mut idx = 0;
     
     draw_image(image_files[idx], &mut canvas)?;
-    
-    while let Some(event) = sdl_context.event_pump()?.wait_event_timeout(30000) {
-        match event {
-            Event::Quit{..} |
-            Event::KeyDown {keycode: Option::Some(Keycode::Escape), ..} =>
-                break,
-            Event::KeyDown {keycode: Option::Some(Keycode::Right), ..} => {
-                if idx < 4 {
-                    idx = idx + 1;
-                    draw_image(image_files[idx], &mut canvas)?;
-                }
-            },
-            Event::KeyDown {keycode: Option::Some(Keycode::Left), ..} => {
-                if idx > 0 {
-                    idx = idx - 1;
-                    draw_image(image_files[idx], &mut canvas)?;
-                }
-            },
-            Event::Window { win_event: WindowEvent::Exposed, .. } => 
-                draw_image(image_files[idx], &mut canvas)?,
-            _ => { }
+
+    loop {
+        if let Some(event) = sdl_context.event_pump()?.wait_event_timeout(30000) {
+            match event {
+                Event::Quit{..} |
+                Event::KeyDown {keycode: Option::Some(Keycode::Escape), ..} =>
+                    break,
+                Event::KeyDown {keycode: Option::Some(Keycode::Right), ..} => {
+                    if idx < 4 {
+                        idx = idx + 1;
+                        draw_image(image_files[idx], &mut canvas)?;
+                    }
+                },
+                Event::KeyDown {keycode: Option::Some(Keycode::Left), ..} => {
+                    if idx > 0 {
+                        idx = idx - 1;
+                        draw_image(image_files[idx], &mut canvas)?;
+                    }
+                },
+                Event::Window { win_event: WindowEvent::Exposed, .. } => 
+                    draw_image(image_files[idx], &mut canvas)?,
+                _ => { }
+            }
         }
     }
 
